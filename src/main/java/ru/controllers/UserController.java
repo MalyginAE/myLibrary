@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/input")
     public String input(Model model) {
         model.addAttribute("enter_to_page", new EnterToPage());
-        return "user/input/input_to_site";
+        return "input_to_site";
     }
 
     @PostMapping("/inputs")
