@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <title>Регистрация</title>
+    <link  th:href="@{/resources/style.css}" rel="stylesheet"/>
+    <style>body {
+        background-image: url("../user/sign_up/img/fon.png");
+    }
+
+    #main {
+        height: 800px;
+        width: 500px;
+        margin: 100px auto 0px auto;
+        background-color: rgba(24, 33, 52, 0.5);;
+        border-radius: 50px;
+    }
+
+    input[type=text], input[type=password] {
+        width: 250px;
+        height: 35px;
+        font-size: medium;
+        font-family: "Times New Roman";
+        margin-bottom: 20px;
+        text-align: center;
+        padding-left: 15px;
+        border-radius: 10px;
+        border-width: 5px;
+    }
+
+    #name {
+        padding-top: 30px;
+    }
+
+    h3 {
+        font-family: "Times New Roman";
+        color: bisque;
+    }
+
+    form {
+        text-align: center;
+    }
+
+    input[type=button] {
+        width: 160px;
+        height: 40px;
+        padding: 3px;
+        margin: 30px;
+        border-radius: 10px;
+        font-family: "Times New Roman";
+        font-size: 15px;
+    }
+
+    input[type=date] {
+        width: 250px;
+        height: 35px;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    img {
+        width: 90px;
+        margin-top: -40px;
+        border-radius: 30px;
+    }</style>
+</head>
+<body>
+<div id="main">
+
+    <form th:method="POST" th:action="@{/user}" th:object="${user}">
+        <img src="user/sign_up/img/sun.png">
+        <h3 id="name">Введите имя</h3>
+        <input name="UserName" type="text" placeholder="Введите имя" th:field="*{name}"/>
+        <h3>Введите фамилию</h3>
+        <input name="UserSurname" type="text" placeholder="Введите фамилию" th:field="*{surname}"/>
+        <h3>Введите email</h3>
+        <input name="password" type="password" placeholder="Введите email" th:field="*{email}"/>
+        <h3>Введите пароль</h3>
+        <input name="password" type="password" placeholder="Введите пароль" th:field="*{password}"/>
+
+        <br>
+
+        <input type="submit" value="Зарегистрироваться"/>
+    </form>
+</div>
+<p>pizdec</p>
+<p>пиздец</p>
+</body>
+</html>

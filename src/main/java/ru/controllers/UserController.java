@@ -19,11 +19,12 @@ public class UserController {
     @GetMapping("/signup")
     public String create(Model model){
         model.addAttribute("user",new User());
-        return "user/sign_up/sign_up";
+        return "sign_up";
     }
 
     @PostMapping()
     public String add(Model model, @ModelAttribute User user){
+        userDAO.addUser(user);
         return "redirect:/user/input";
     }
 
