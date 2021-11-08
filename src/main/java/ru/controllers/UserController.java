@@ -3,16 +3,14 @@ package ru.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.user.EnterToPage;
 import ru.user.User;
 import ru.user.UserDAO;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("current_user")
 public class UserController {
     @Autowired
     private UserDAO userDAO;
@@ -37,13 +35,16 @@ public class UserController {
     }
 
     @PostMapping("/inputs")
+
     public String enter(Model model, @ModelAttribute EnterToPage enterToPage) {
         if (userDAO.checkUser(enterToPage)) {
             //взять объект пользователя и предать на мэйн для отображения
-            model.addAttribute("user",userDAO.getUser(enterToPage.getEmail()));
+            model.addAttribute("current_user",userDAO.getUser(enterToPage.getEmail()));
             return "redirect:/main";
         }
         return "redirect:/user/input";
     }
+
+
 
 }

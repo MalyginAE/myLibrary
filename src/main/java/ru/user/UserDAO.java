@@ -79,6 +79,25 @@ public class UserDAO {
 
         return user;
     }
+
+    public User getUser(Integer id){
+        User user = new User();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT name, surname, email FROM users WHERE id = ?");
+            preparedStatement.setString(1, String.valueOf(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            user.setUser_id(id);
+            user.setName(resultSet.getString(1));
+            user.setSurname(resultSet.getString(2));
+            user.setEmail(resultSet.getString(3));
+
+        } catch (SQLException e) {
+            System.out.println("Ошибка при получении User");
+        }
+
+        return user;
+    }
 }
 
 

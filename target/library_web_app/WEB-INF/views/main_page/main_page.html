@@ -72,8 +72,8 @@
 <header>
     <div id="link">
         <ul>
-            <a href="" class="linkHead">Главная</a>
-            <a href="" class="linkHead">Второстепенная</a>
+            <a href="" class="linkHead" th:text="${current_user.getName()}">Главная</a>
+            <a href="" class="linkHead" th:text="${current_user.getEmail()}">Второстепенная</a>
             <a href="" class="linkHead">О нас</a>
             <a href="" class="linkHead">О вас</a>
             <a href="" class="linkHead">И о Кавказ</a>
