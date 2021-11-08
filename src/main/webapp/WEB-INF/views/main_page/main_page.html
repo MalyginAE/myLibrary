@@ -72,11 +72,11 @@
 <header>
     <div id="link">
         <ul>
-            <a href="" class="linkHead" th:text="${current_user.getName()}">Главная</a>
-            <a href="" class="linkHead" th:text="${current_user.getEmail()}">Второстепенная</a>
+            <a href="" class="linkHead" th:href="@{/main}" th:text="${current_user.getName()}">Главная</a>
+            <a href="" class="linkHead" th:href="@{/main/addNewBook}">Добавить книгу</a>
             <a href="" class="linkHead">О нас</a>
-            <a href="" class="linkHead">О вас</a>
-            <a href="" class="linkHead">И о Кавказ</a>
+            <a th:href="@{/main/changeDataUser}" class="linkHead">О вас</a>
+            <a th:href="@{/main/exist}" class="linkHead">Выйти из сессии</a>
         </ul>
     </div>
 </header>

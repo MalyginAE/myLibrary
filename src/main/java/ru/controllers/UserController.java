@@ -13,7 +13,7 @@ import ru.user.UserDAO;
 @SessionAttributes("current_user")
 public class UserController {
     @Autowired
-    private UserDAO userDAO;
+    private  UserDAO userDAO;
 
 
     @GetMapping("/signup")
@@ -35,11 +35,11 @@ public class UserController {
     }
 
     @PostMapping("/inputs")
-
     public String enter(Model model, @ModelAttribute EnterToPage enterToPage) {
         if (userDAO.checkUser(enterToPage)) {
             //взять объект пользователя и предать на мэйн для отображения
             model.addAttribute("current_user",userDAO.getUser(enterToPage.getEmail()));
+            System.out.println("Сюда Заходим");
             return "redirect:/main";
         }
         return "redirect:/user/input";

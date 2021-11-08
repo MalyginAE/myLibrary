@@ -13,7 +13,7 @@ import ru.user.User;
 @SessionAttributes("current_user")
 public class LibraryController {
     @GetMapping
-    public String mainPage(Model model, @ModelAttribute() User user){
+    public String mainPage(Model model){
         if (model.getAttribute("current_user")==null){
             return "redirect:/user/input";
         }
@@ -28,6 +28,16 @@ public class LibraryController {
 
         return "";
     }
+
+    @GetMapping("/exist")
+    public String existSession(Model model){
+        model.addAttribute("current_user", null);
+        return "redirect:/user/input";
+    }
+//    @GetMapping("/addNewBook")
+//    public String addBook(){
+//        return "/main_page/main_page";
+//    }
 
 
 }
