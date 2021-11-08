@@ -2,10 +2,7 @@ package ru.user;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Component
 
@@ -50,6 +47,38 @@ public class UserDAO {
         }
     }
 
+    public boolean checkUser(EnterToPage enterToPage) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE email = ? and password = ?");
+            preparedStatement.setString(1, enterToPage.getEmail());
+            preparedStatement.setString(2, enterToPage.getPassword());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            System.out.println("Пользователь не существует");
+            System.out.println("Ошибка");
+        }
+        return false;
+    }
+    public User getUser(String email){
+        User user = new User();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT name, surname, user_id FROM users WHERE email = ?");
+            preparedStatement.setString(1,email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            user.setEmail(email);
+            user.setName(resultSet.getString(1));
+            user.setSurname(resultSet.getString(2));
+            user.setUser_id(Integer.parseInt(resultSet.getString(3)));
+
+        } catch (SQLException e) {
+            System.out.println("Ошибка при получении User");
+        }
+
+        return user;
+    }
 }
 
 

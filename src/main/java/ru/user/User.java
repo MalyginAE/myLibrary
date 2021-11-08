@@ -1,22 +1,30 @@
 package ru.user;
 
-import java.util.Date;
-
 public class User {
+    private int user_id;
     private String name;
     private String surname;
     //private Date date;
-
     private String email;
     private String password;
     private int imageId;
 
-    public User(){}
+    public User() {
+    }
+
     public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getSurname() {
@@ -42,7 +50,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 
     public String getPassword() {
