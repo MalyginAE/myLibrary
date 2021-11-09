@@ -18,7 +18,7 @@
     </div>
 </header>
 
-<form th:method="Post" th:object="${current_user}" th:action="@{/book/addBook}">
+<form enctype="multipart/form-data" th:method="Post" th:object="${current_user}" th:action="@{/book/addBook} ">
 
     <input type="file" name="file">
     <input type="submit" id="submit_user" value="Отправить">

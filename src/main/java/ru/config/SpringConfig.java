@@ -17,6 +17,8 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import javax.servlet.MultipartConfigElement;
+
 
 @Configuration
 @ComponentScan("ru")
@@ -69,6 +71,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Application
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
+
 
 //    private ITemplateResolver plainTemplateResolver() {
 //        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
