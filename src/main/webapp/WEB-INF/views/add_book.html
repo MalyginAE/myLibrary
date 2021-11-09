@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+    <link href="/styles/css/change_data_user.css"  rel="stylesheet"  type="text/css"/>
+</head>
+<body>
+<header>
+    <div id="link">
+        <ul>
+            <a href="" class="linkHead" th:href="@{/main}">Главная</a>
+            <a href="" class="linkHead" th:href="@{/main/addNewBook}">Добавить книгу</a>
+            <a href="" class="linkHead">О нас</a>
+            <a  class="linkHead" href="" th:href="@{/main/changeDataUser}">О вас</a>
+            <a  class="linkHead" href="" th:href="@{/main/exist}">Выйти из сессии</a>
+        </ul>
+    </div>
+</header>
+
+<form th:method="Post" th:object="${current_user}" th:action="@{/book/addBook}">
+
+    <input type="file" name="file">
+    <input type="submit" id="submit_user" value="Отправить">
+</form>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package ru.user;
 
+import java.util.Objects;
+
 public class User {
     private int user_id;
     private String name;
@@ -19,6 +21,14 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User" +
+                "user_id=" + user_id +
+                ", name='" + name   +
+                ", surname='" + surname ;
+    }
+
     public int getUser_id() {
         return user_id;
     }
@@ -30,6 +40,19 @@ public class User {
 
     public String getSurname() {
         return surname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getUser_id() == user.getUser_id();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUser_id(), getEmail());
     }
 
     public void setSurname(String surname) {

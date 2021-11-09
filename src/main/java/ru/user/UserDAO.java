@@ -99,7 +99,7 @@ public class UserDAO {
         return user;
     }
 
-    public void update(int id, User user){
+    public User update(int id, User user){
         try {
             PreparedStatement preparedStatement =connection.prepareStatement("UPDATE users SET name = ?,surname=?,email=? WHERE user_id = ?;");
             preparedStatement.setString(1,user.getName());
@@ -107,9 +107,11 @@ public class UserDAO {
             preparedStatement.setString(3,user.getEmail());
             preparedStatement.setString(4, String.valueOf(id));
             preparedStatement.executeUpdate();
+            user.setUser_id(id);
         } catch (SQLException e) {
             System.out.println("Ошибка в обновлении пользователя");
         }
+        return user;
     }
 }
 

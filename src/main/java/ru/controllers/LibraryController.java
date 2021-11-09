@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import ru.user.User;
+
 
 @Controller
 @RequestMapping("/main")
@@ -12,9 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class LibraryController {
     @GetMapping
     public String mainPage(Model model){
-        if (model.getAttribute("current_user")==null){
+        Object obj = model.getAttribute("current_user");
+        if (obj!=null)System.out.println(obj.getClass()+" |"+ User.class);
+        if (obj==null || !obj.getClass().equals(User.class)){
+
             return "redirect:/user/input";
         }
+        System.out.println(model.getAttribute("current_user").toString());
         return "main_page";
     }
     @GetMapping("/addBook")
@@ -23,19 +29,28 @@ public class LibraryController {
     }
     @GetMapping("/changeDataUser")
     public String changeUser(Model model){
-
+        Object obj = model.getAttribute("current_user");
+        if (obj==null || !obj.getClass().equals(User.class)){
+            return "redirect:/user/input";
+        }
         return "change_data_user";
     }
 
     @GetMapping("/exist")
     public String existSession(Model model){
-        model.addAttribute("current_user", null);
+        model.addAttribute("current_user", new String());
+        System.out.println("Текущее значение после выхода = "+model.getAttribute("current_user"));
+        System.out.println("был произведен выход");
         return "redirect:/user/input";
     }
-//    @GetMapping("/addNewBook")
-//    public String addBook(){
-//        return "/main_page/main_page";
-//    }
+    @GetMapping("/addNewBook")
+    public String addBook(Model model){
+        Object obj = model.getAttribute("current_user");
+        if (obj==null || !obj.getClass().equals(User.class)){
+            return "redirect:/user/input";
+        }
+        return "add_book";
+    }
 
 
 }

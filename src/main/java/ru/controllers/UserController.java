@@ -37,16 +37,16 @@ public class UserController {
     @PostMapping("/inputs")
     public String enter(Model model, @ModelAttribute EnterToPage enterToPage) {
         if (userDAO.checkUser(enterToPage)) {
-            //взять объект пользователя и предать на мэйн для отображения
             model.addAttribute("current_user",userDAO.getUser(enterToPage.getEmail()));
-            System.out.println("Сюда Заходим");
+            System.out.println("Выполнен вход" + model.getAttribute("current_user").toString());
             return "redirect:/main";
         }
         return "redirect:/user/input";
     }
     @PostMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model, @ModelAttribute User user){
-        userDAO.update(id,user);
+        model.addAttribute("current_user",userDAO.update(id,user));
+        System.out.println("Пользователь "+ user+" изменил свои данные");
         return "redirect:/main/changeDataUser";
     }
 

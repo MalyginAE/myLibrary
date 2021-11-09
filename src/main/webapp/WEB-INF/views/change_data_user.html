@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Добавление книги</title>
@@ -9,16 +9,16 @@
 <header>
     <div id="link">
         <ul>
-            <a href="" class="linkHead" >Главная</a>
-            <a href="" class="linkHead">Добавить книгу</a>
+            <a href="" class="linkHead" th:href="@{/main}" >Главная</a>
+            <a href="" class="linkHead" th:href="@{/main/addNewBook}">Добавить книгу</a>
             <a href="" class="linkHead">О нас</a>
-            <a  class="linkHead" href="">О вас</a>
-            <a  class="linkHead" href="">Выйти из сессии</a>
+            <a  class="linkHead" href="" th:href="@{/main/changeDataUser}" th:text="${current_user.getName()}">О вас</a>
+            <a  class="linkHead" href="" th:href="@{/main/exist}">Выйти из сессии</a>
         </ul>
     </div>
 </header>
 
-<form th:method="POST" th:action="@{/user/{id}/edit(id=${current_user.getId()})}" th:object="${current_user}">
+<form th:method="Post" th:object="${current_user}" th:action="@{/user/{id}/edit(id=${current_user.getUser_id()})}">
 
     <input id="name" type="text" placeholder="Текущее имя" th:field="*{name}">
     <br>

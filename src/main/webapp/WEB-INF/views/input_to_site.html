@@ -10,7 +10,7 @@
     <img src="/images/input/6.png" id="image">
     <div class="dws Input">
         <!--<input name="login" type="text" placeholder="Введите логин">-->
-        <input name="email" type="text" placeholder="Введите пароль" id="email" th:field="*{email}">
+        <input name="email" type="text" placeholder="Введите email" id="email" th:field="*{email}">
         <input name="password" type="password" placeholder="Введите пароль" id="password" th:field="*{password}">
         <br>
         <input  name="Кнопка" type="submit" class="dws-submit" value="Войти">
@@ -19,7 +19,7 @@
         <br>
         <a class="link" href="HtmlFile.html">Забыли пароль?</a>
         <br>
-        <button name="" id="sign_up" type="submit">Зарегистрироваться</button>
+        <button th:href="@{/user/sign_up}" id="sign_up" type="submit">Зарегистрироваться</button>
     </div>
 </form>
 
