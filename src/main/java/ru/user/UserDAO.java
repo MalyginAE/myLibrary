@@ -93,10 +93,23 @@ public class UserDAO {
             user.setEmail(resultSet.getString(3));
 
         } catch (SQLException e) {
-            System.out.println("Ошибка при получении User");
+            System.out.println("Ошибка при получении User из метода GetUser ");
         }
 
         return user;
+    }
+
+    public void update(int id, User user){
+        try {
+            PreparedStatement preparedStatement =connection.prepareStatement("UPDATE users SET name = ?,surname=?,email=? WHERE user_id = ?;");
+            preparedStatement.setString(1,user.getName());
+            preparedStatement.setString(2,user.getSurname());
+            preparedStatement.setString(3,user.getEmail());
+            preparedStatement.setString(4, String.valueOf(id));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Ошибка в обновлении пользователя");
+        }
     }
 }
 

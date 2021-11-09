@@ -49,7 +49,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Application
         viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setContentType("text/html; charset=UTF-8");
         viewResolver.setOrder(1);
-        viewResolver.setViewNames(new String[] {".html"});
+        viewResolver.setViewNames(new String[] {".html",".js",".css"});
         return viewResolver;
     }
 
@@ -70,23 +70,15 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Application
         return templateEngine;
     }
 
-    private ITemplateResolver plainTemplateResolver() {
-        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setApplicationContext(applicationContext);
-        resolver.setPrefix("/WEB-INF/txt/");
-        resolver.setCacheable(false);
-        resolver.setTemplateMode(TemplateMode.TEXT);
-        return resolver;
-    }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/styles/css/**")
-                .addResourceLocations("classpath:/static/css/");
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations("classpath:/static/images/");
-        registry.addResourceHandler("/js/**")
-                .addResourceLocations("classpath:/static/js/");
-    }
+//    private ITemplateResolver plainTemplateResolver() {
+//        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+//        resolver.setApplicationContext(applicationContext);
+//        resolver.setPrefix("/WEB-INF/txt/");
+//        resolver.setCacheable(false);
+//        resolver.setTemplateMode(TemplateMode.TEXT);
+//        return resolver;
+//    }
+
 
 
     @Override

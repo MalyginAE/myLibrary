@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+    <link href="/styles/css/change_data_user.css"  rel="stylesheet"  type="text/css"/>
+</head>
+<body>
+<header>
+    <div id="link">
+        <ul>
+            <a href="" class="linkHead" >Главная</a>
+            <a href="" class="linkHead">Добавить книгу</a>
+            <a href="" class="linkHead">О нас</a>
+            <a  class="linkHead" href="">О вас</a>
+            <a  class="linkHead" href="">Выйти из сессии</a>
+        </ul>
+    </div>
+</header>
+
+<form th:method="POST" th:action="@{/user/{id}/edit(id=${current_user.getId()})}" th:object="${current_user}">
+
+    <input id="name" type="text" placeholder="Текущее имя" th:field="*{name}">
+    <br>
+    <input id="surname" type="text" placeholder="Текущая фамилия" th:field="*{surname}">
+    <br>
+    <input id="email" type="text" placeholder="Текущий  email"th:field="*{email}">
+    <br>
+    <input type="submit" id="submit_user" value="Изменить">
+</form>
+</body>
+</html>

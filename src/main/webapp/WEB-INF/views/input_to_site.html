@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Социальная сеть</title>
-    <link href="/styles/css/input_to_site.css"  rel="stylesheet"/>
+    <link href="/styles/css/input_to_site.css"  rel="stylesheet"  type="text/css"/>
 </head>
 <body>
 <form class="container" th:method="POST" th:object="${enter_to_page}" th:action="@{/user/inputs}">
-    <img src="image/face/6.png" id="image">
+    <img src="/images/input/6.png" id="image">
     <div class="dws Input">
         <!--<input name="login" type="text" placeholder="Введите логин">-->
         <input name="email" type="text" placeholder="Введите пароль" id="email" th:field="*{email}">
@@ -15,7 +15,7 @@
         <br>
         <input  name="Кнопка" type="submit" class="dws-submit" value="Войти">
         <br>
-        <a class="link" href="HtmlFile.html">Забыли логин?</a>
+        <a class="link" th:href="HtmlFile.html">Забыли логин?</a>
         <br>
         <a class="link" href="HtmlFile.html">Забыли пароль?</a>
         <br>
@@ -23,6 +23,7 @@
     </div>
 </form>
 
-<script></script>
+
+<script src="/js/input.js" type="text/javascript"></script>
 </body>
 </html>

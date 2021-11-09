@@ -44,6 +44,11 @@ public class UserController {
         }
         return "redirect:/user/input";
     }
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable int id, Model model, @ModelAttribute User user){
+        userDAO.update(id,user);
+        return "redirect:/main/changeDataUser";
+    }
 
 
 
