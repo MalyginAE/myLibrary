@@ -23,10 +23,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User" +
-                "user_id=" + user_id +
-                ", name='" + name   +
-                ", surname='" + surname ;
+        return String.valueOf(getUser_id());
     }
 
     public int getUser_id() {
