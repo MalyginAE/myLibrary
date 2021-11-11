@@ -1,15 +1,15 @@
-window.onload = function () {
-    let man = document.getElementById("image")
-    man.onmouseover = (x) => {
-        x.target.src = "/images/sign_up/reg.png";
-    }
-    man.onmouseout = (x) => {
-        x.target.src = "/images/sign_up/6.png";
-    }
-    man.onclick = x => {
-        x.target.href  = "/images/sign_up/6.png";
-    }
-}
+// window.onload = function () {
+//     let man = document.getElementById("image")
+//     man.onmouseover = (x) => {
+//         x.target.src = "/images/sign_up/reg.png";
+//     }
+//     man.onmouseout = (x) => {
+//         x.target.src = "/images/sign_up/6.png";
+//     }
+//     man.onclick = x => {
+//         x.target.href  = "/images/sign_up/6.png";
+//     }
+// }
 
 
 // Book.prototype.createBook = function () {

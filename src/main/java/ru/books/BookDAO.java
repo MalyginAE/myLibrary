@@ -17,7 +17,7 @@ public class BookDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/library";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
-    static Path root = Path.of("C:\\Users\\andre\\library_web_app\\src\\main\\resources\\static\\images\\user_id");
+    static Path root = Path.of("C:\\Users\\andre\\library_web_app\\covers");
     private static Connection connection;
 
     static {
@@ -41,9 +41,9 @@ public class BookDAO {
 
     }
     public String doRequestText(String path,int id, MultipartFile multipartFile){
-        return "/images/user_id/"+id+"/"+multipartFile.getOriginalFilename();
+        return "/covers/"+id+"/"+multipartFile.getOriginalFilename();
     }
-
+    //в данном методе ошибка в подзапросе
     public boolean addDataInDataBase(String sourceImage, String url, int id, String doReq) {
         try {
             PreparedStatement addInBooks = connection.prepareStatement("INSERT INTO books (book_url, image_book_source,request_to_server) VALUES ( ?,?,?) ;");
@@ -140,7 +140,7 @@ public class BookDAO {
             PreparedStatement delete1 = connection.prepareStatement("DELETE FROM user_connect_books WHERE book_id = ?; ");
             delete1.setString(1, String.valueOf(book_id));
             delete1.executeUpdate();
-            PreparedStatement delete2 = connection.prepareStatement("DELETE FROM user_connect_books WHERE book_id = ?; ");
+            PreparedStatement delete2 = connection.prepareStatement("DELETE FROM books WHERE book_id = ?; ");
             delete2.setString(1, String.valueOf(book_id));
             delete2.executeUpdate();
 
