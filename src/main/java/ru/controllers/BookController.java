@@ -26,7 +26,12 @@ public class BookController {
         } catch (IOException e) {
             System.out.println("Ошибка при создании файла");
         }
-        return "added";
+        return "redirect:/main/addNewBook";
     }
-
+    @GetMapping("/{id}/delete")
+    public String deleteBook(@PathVariable("id") int id){
+        System.out.println("Зашли в deleteBook");
+        bookDAO.deleteBookData(id);
+    return "redirect:/main/changeDataUser";
+}
 }

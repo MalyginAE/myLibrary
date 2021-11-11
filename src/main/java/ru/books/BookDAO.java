@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BookDAO {
@@ -37,17 +36,20 @@ public class BookDAO {
 
     public void upload(MultipartFile multipartFile, String url, int id) throws IOException {
         String filePath = saveOnServer(multipartFile, id);
-        addDataInDataBase(filePath, url, id);
+        addDataInDataBase(filePath, url, id, doRequestText(filePath, id, multipartFile));
 
 
     }
+    public String doRequestText(String path,int id, MultipartFile multipartFile){
+        return "/images/user_id/"+id+"/"+multipartFile.getOriginalFilename();
+    }
 
-    public boolean addDataInDataBase(String sourceImage, String url, int id) {
+    public boolean addDataInDataBase(String sourceImage, String url, int id, String doReq) {
         try {
-            PreparedStatement addInBooks = connection.prepareStatement("INSERT INTO books (book_url, image_book_source,describe_book_source) VALUES ( ?,?,?) ;");
+            PreparedStatement addInBooks = connection.prepareStatement("INSERT INTO books (book_url, image_book_source,request_to_server) VALUES ( ?,?,?) ;");
             addInBooks.setString(1, url);
             addInBooks.setString(2, sourceImage);
-            addInBooks.setString(3, String.valueOf(id));
+            addInBooks.setString(3, doReq);
             addInBooks.executeUpdate();
             PreparedStatement addInConTabl = connection.prepareStatement("INSERT INTO user_connect_books  VALUES (?,(SELECT book_id FROM books WHERE book_url = ? LIMIT 1));");
             addInConTabl.setString(1, String.valueOf(id));
@@ -76,5 +78,76 @@ public class BookDAO {
             }
         }
         return file.toString();
+    }
+
+    public List<Book> allUserBook(int user_id){
+        List<Book> list = new ArrayList<>();
+        try {
+            PreparedStatement addInBooks = connection.prepareStatement("SELECT book_url,image_book_source,request_to_server,books.book_id FROM user_connect_books ucb INNER JOIN books ON  user_id = ? and ucb.book_id=books.book_id;");
+            addInBooks.setString(1, String.valueOf(user_id));
+            ResultSet resultSet = addInBooks.executeQuery();
+
+            while (resultSet.next()){
+                Book book = new Book();
+                book.setUrlPDF(resultSet.getString("book_url"));
+                book.setImage_source(resultSet.getString("image_book_source"));
+                book.setUrl_req(resultSet.getString("request_to_server"));
+                book.setBook_id(Integer.parseInt(resultSet.getString("book_id")));
+                list.add(book);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("При отобажении книг+ "+list.size());
+        }
+        return list;
+    }
+    void deleteBookPC(String path){
+        try {
+            Files.delete(Path.of(path));
+        } catch (IOException e) {
+            System.out.println("File не удалился");
+            e.printStackTrace();
+        }
+
+    }
+    public Book showDataBook(int book_id){
+        try {
+            PreparedStatement addInBooks = connection.prepareStatement("SELECT book_url,image_book_source,request_to_server FROM books WHERE book_id = ?;");
+            addInBooks.setString(1, String.valueOf(book_id));
+            ResultSet resultSet = addInBooks.executeQuery();
+
+            resultSet.next();
+                Book book = new Book();
+                book.setUrlPDF(resultSet.getString("book_url"));
+                book.setImage_source(resultSet.getString("image_book_source"));
+                book.setUrl_req(resultSet.getString("request_to_server"));
+                book.setBook_id(book_id);
+                return book;
+
+        } catch (SQLException e) {
+            System.out.println("Ошибка при выплнении запроса данных книги");
+        }
+        return new Book();
+    }
+    public void deleteBookData(int book_id){
+        System.out.println("Зашли в deleteBookData");
+        Book book = showDataBook(book_id);
+        System.out.println(book.getImage_source());
+        System.out.println(book.message_delete());
+        deleteBookPC(book.getImage_source());
+        try {
+
+            PreparedStatement delete1 = connection.prepareStatement("DELETE FROM user_connect_books WHERE book_id = ?; ");
+            delete1.setString(1, String.valueOf(book_id));
+            delete1.executeUpdate();
+            PreparedStatement delete2 = connection.prepareStatement("DELETE FROM user_connect_books WHERE book_id = ?; ");
+            delete2.setString(1, String.valueOf(book_id));
+            delete2.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println("Удаление книги не удалось");
+            e.printStackTrace();
+        }
     }
 }

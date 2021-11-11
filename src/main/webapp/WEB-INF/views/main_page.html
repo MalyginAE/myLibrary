@@ -18,23 +18,14 @@
         </ul>
     </div>
 </header>
-<article>
-    <img src="" class="ArticleDiv" id="book1">
+<div th:each="book : ${books}">
+<article >
+    <img class="ArticleDiv"  th:src="${book.getUrl_req()}"   th:id="${book.getBook_id()}">
 </article>
-<article>
-    <img src="bookImage/img_1.png" class="ArticleDiv" id="book2">
-</article>
-<article>
-    <img src="bookImage/img_2.png" class="ArticleDiv" id="book3">
-</article>
-<article></article>
-<article></article>
-<article></article>
-<article></article>
-<article></article>
+</div>
 
 
 
-<script src="/js/main.js" type="text/javascript"></script>
+<!--<script src="/js/main.js" type="text/javascript"></script>-->
 </body>
 </html>

@@ -17,7 +17,7 @@
         </ul>
     </div>
 </header>
-
+<div class="forms">
 <form th:method="Post" th:object="${current_user}" th:action="@{/user/{id}/edit(id=${current_user.getUser_id()})}">
 
     <input id="name" type="text" placeholder="Текущее имя" th:field="*{name}">
@@ -28,5 +28,9 @@
     <br>
     <input type="submit" id="submit_user" value="Изменить">
 </form>
+</div>
+<div class="list_books"  th:each="book : ${books}">
+    <a class="l" th:href="@{/book/{id}/delete(id=${book.getBook_id()})}" th:text="${book.message_delete()}">Нажмите чтобы удалить</a>
+</div>
 </body>
 </html>

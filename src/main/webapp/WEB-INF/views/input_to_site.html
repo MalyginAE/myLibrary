@@ -6,9 +6,10 @@
     <link href="/styles/css/input_to_site.css"  rel="stylesheet"  type="text/css"/>
 </head>
 <body>
+<div class="dws Input">
 <form class="container" th:method="POST" th:object="${enter_to_page}" th:action="@{/user/inputs}">
     <img src="/images/input/6.png" id="image">
-    <div class="dws Input">
+
         <!--<input name="login" type="text" placeholder="Введите логин">-->
         <input name="email" type="text" placeholder="Введите email" id="email" th:field="*{email}">
         <input name="password" type="password" placeholder="Введите пароль" id="password" th:field="*{password}">
@@ -19,11 +20,11 @@
         <br>
         <a class="link" href="HtmlFile.html">Забыли пароль?</a>
         <br>
-        <button th:href="@{/user/sign_up}" id="sign_up" type="submit">Зарегистрироваться</button>
-    </div>
+
+
 </form>
 
-
+</div>
 <script src="/js/input.js" type="text/javascript"></script>
 </body>
 </html>
