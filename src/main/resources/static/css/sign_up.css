@@ -22,8 +22,8 @@ input[type=text], input[type=password] {
     border-width: 5px;
 }
 
-#name {
-    padding-top: 30px;
+#names {
+    margin-top: 30px;
 }
 
 h3 {
@@ -35,7 +35,7 @@ form {
     text-align: center;
 }
 
-input[type=button] {
+input[type=submit] {
     width: 160px;
     height: 40px;
     padding: 3px;

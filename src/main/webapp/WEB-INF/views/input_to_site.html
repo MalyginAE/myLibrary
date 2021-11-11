@@ -8,7 +8,7 @@
 <body>
 <div class="dws Input">
 <form class="container" th:method="POST" th:object="${enter_to_page}" th:action="@{/user/inputs}">
-    <img src="/images/input/6.png" id="image">
+    <a href="/user/signup" id="img_link"><img src="/images/input/6.png" id="image"></a>
 
         <!--<input name="login" type="text" placeholder="Введите логин">-->
         <input name="email" type="text" placeholder="Введите email" id="email" th:field="*{email}">

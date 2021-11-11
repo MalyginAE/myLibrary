@@ -69,3 +69,10 @@ input[type=text]{
     font-family: "Berlin Sans FB";
     font-size: 20px;
 }
+#changeFile{
+    padding: 13px;
+    margin: 20px;
+    font-size: 20px;
+    background-color: rgba(191, 173, 151, 1);
+    border-radius: 10px;
+}

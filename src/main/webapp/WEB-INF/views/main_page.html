@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация</title>
+    <title>Библиотека</title>
     <link href="/styles/css/main_style.css"  rel="stylesheet"  type="text/css"/>
 
 </head>
@@ -20,7 +20,7 @@
 </header>
 <div th:each="book : ${books}">
 <article >
-    <img class="ArticleDiv"  th:src="${book.getUrl_req()}"   th:id="${book.getBook_id()}">
+    <a th:href="@{${book.getUrlPDF()}}" target="_blank"><img class="ArticleDiv"  th:src="${book.getUrl_req()}"   th:id="${book.getBook_id()}"></a>
 </article>
 </div>
 

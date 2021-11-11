@@ -10,12 +10,12 @@
 
     <form th:method="POST" th:action="@{/user}" th:object="${user}">
         <img src="/images//sign_up/sun.png">
-        <h3 id="name">Введите имя</h3>
+        <h3 id="names">Введите имя</h3>
         <input name="UserName" type="text" placeholder="Введите имя" th:field="*{name}"/>
         <h3>Введите фамилию</h3>
         <input name="UserSurname" type="text" placeholder="Введите фамилию" th:field="*{surname}"/>
         <h3>Введите email</h3>
-        <input name="password" type="password" placeholder="Введите email" th:field="*{email}"/>
+        <input name="password" type="text" placeholder="Введите email" th:field="*{email}"/>
         <h3>Введите пароль</h3>
         <input name="password" type="password" placeholder="Введите пароль" th:field="*{password}"/>
 
