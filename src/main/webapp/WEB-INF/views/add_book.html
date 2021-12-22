@@ -17,12 +17,11 @@
         </ul>
     </div>
 </header>
-
-<form enctype="multipart/form-data" th:method="Post" th:object="${current_user}" th:action="@{/book/addBook} ">
-    <input type="url" name="url">
-    <input type="file" name="file" id="fileInput" style="display: none">
-    <button type="button" id="changeFile" onclick="document.getElementById('fileInput').click()" >Выберите файл</button>
-    <input type="submit" id="submit_user" value="Отправить">
-</form>
+    <form enctype="multipart/form-data" th:method="Post"  th:action="@{/book/addBook} ">
+        <input type="url" name="url" id="url" >
+        <input type="file" name="file" id="fileInput" style="display: none">
+        <button type="button" id="changeFile" onclick="document.getElementById('fileInput').click()" >Выберите файл</button>
+        <input type="submit" id="submit_user" value="Отправить">
+    </form>
 </body>
 </html>

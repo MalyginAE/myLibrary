@@ -1,7 +1,9 @@
 package ru.books;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import ru.workWithDatabase.DataBaseWorkDao;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Component
 public class BookDAO {
+    @Autowired
+    DataBaseWorkDao database;
     private static final String URL = "jdbc:mysql://localhost:3306/library";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
@@ -46,15 +50,13 @@ public class BookDAO {
     //в данном методе ошибка в подзапросе
     public boolean addDataInDataBase(String sourceImage, String url, int id, String doReq) {
         try {
-            PreparedStatement addInBooks = connection.prepareStatement("INSERT INTO books (book_url, image_book_source,request_to_server) VALUES ( ?,?,?) ;");
+            PreparedStatement addInBooks = connection.prepareStatement("call insert_book(?,?,?,?)");
+           // PreparedStatement addInBooks = connection.prepareStatement("INSERT INTO books (book_url, image_book_source,request_to_server) VALUES ( ?,?,?) ;");
             addInBooks.setString(1, url);
             addInBooks.setString(2, sourceImage);
             addInBooks.setString(3, doReq);
+            addInBooks.setString(4, String.valueOf(id));
             addInBooks.executeUpdate();
-            PreparedStatement addInConTabl = connection.prepareStatement("INSERT INTO user_connect_books  VALUES (?,(SELECT book_id FROM books WHERE book_url = ? LIMIT 1));");
-            addInConTabl.setString(1, String.valueOf(id));
-            addInConTabl.setString(2, url);
-            addInConTabl.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Ошибка в добавлении данных о книге пользователя");
             return false;
@@ -83,7 +85,7 @@ public class BookDAO {
     public List<Book> allUserBook(int user_id){
         List<Book> list = new ArrayList<>();
         try {
-            PreparedStatement addInBooks = connection.prepareStatement("SELECT book_url,image_book_source,request_to_server,books.book_id FROM user_connect_books ucb INNER JOIN books ON  user_id = ? and ucb.book_id=books.book_id;");
+            PreparedStatement addInBooks = connection.prepareStatement("call get_books_of_user(?)");
             addInBooks.setString(1, String.valueOf(user_id));
             ResultSet resultSet = addInBooks.executeQuery();
 
@@ -112,7 +114,8 @@ public class BookDAO {
     }
     public Book showDataBook(int book_id){
         try {
-            PreparedStatement addInBooks = connection.prepareStatement("SELECT book_url,image_book_source,request_to_server FROM books WHERE book_id = ?;");
+            //PreparedStatement addInBooks = connection.prepareStatement("SELECT book_url,image_book_source,request_to_server FROM books WHERE book_id = ?;");
+            CallableStatement addInBooks = connection.prepareCall("call select_book_on_idbook(?)");
             addInBooks.setString(1, String.valueOf(book_id));
             ResultSet resultSet = addInBooks.executeQuery();
 
@@ -137,12 +140,10 @@ public class BookDAO {
         deleteBookPC(book.getImage_source());
         try {
 
-            PreparedStatement delete1 = connection.prepareStatement("DELETE FROM user_connect_books WHERE book_id = ?; ");
+             CallableStatement delete1 = connection.prepareCall("call delete_book(?);");
             delete1.setString(1, String.valueOf(book_id));
+
             delete1.executeUpdate();
-            PreparedStatement delete2 = connection.prepareStatement("DELETE FROM books WHERE book_id = ?; ");
-            delete2.setString(1, String.valueOf(book_id));
-            delete2.executeUpdate();
 
 
         } catch (SQLException e) {

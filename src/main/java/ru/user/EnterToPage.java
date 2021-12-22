@@ -1,7 +1,11 @@
 package ru.user;
 
+import javax.validation.constraints.NotNull;
+
 public class EnterToPage {
+    @NotNull(message = "Введите email")
     private String email;
+    @NotNull(message = "Введите пароль")
     private String password;
 
     public EnterToPage(String email, String password) {

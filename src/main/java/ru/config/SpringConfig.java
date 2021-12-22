@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -23,7 +24,7 @@ import javax.servlet.MultipartConfigElement;
 @Configuration
 @ComponentScan("ru")
 @EnableWebMvc
-
+@PropertySource("classpath:data.properties")
 public class SpringConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware,WebMvcConfigurer {
 
     private ApplicationContext applicationContext;

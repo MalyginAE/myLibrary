@@ -1,13 +1,18 @@
 package ru.user;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class User {
     private int user_id;
+    @NotNull(message = "Вы не ввели имя")
     private String name;
+    @NotNull(message = "Вы не ввели фамилию")
     private String surname;
     //private Date date;
+    @NotNull(message = "Вы не ввели email")
     private String email;
+    @NotNull(message = "Вы не ввели пароль")
     private String password;
     private int imageId;
 

@@ -35,12 +35,11 @@ public class UserDAO {
 
     public void addUser(User user) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(name,surname,email,password) VALUES (?,?,?,?);");
+            PreparedStatement preparedStatement = connection.prepareStatement("call insert_data_from_user(?,?,?,?);");
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Ошибка");
@@ -49,10 +48,10 @@ public class UserDAO {
 
     public boolean checkUser(EnterToPage enterToPage) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE email = ? and password = ?");
-            preparedStatement.setString(1, enterToPage.getEmail());
-            preparedStatement.setString(2, enterToPage.getPassword());
-            ResultSet resultSet = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall("select autoruzation (?,?)");
+            callableStatement.setString(1, enterToPage.getEmail());
+            callableStatement.setString(2, enterToPage.getPassword());
+            ResultSet resultSet = callableStatement.executeQuery();
             return resultSet.next();
 
         } catch (SQLException e) {
@@ -64,9 +63,9 @@ public class UserDAO {
     public User getUser(String email){
         User user = new User();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT name, surname, user_id FROM users WHERE email = ?");
-            preparedStatement.setString(1,email);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall("call collectUser(?)");
+            callableStatement.setString(1,email);
+            ResultSet resultSet = callableStatement.executeQuery();
             resultSet.next();
             user.setEmail(email);
             user.setName(resultSet.getString(1));
@@ -83,9 +82,9 @@ public class UserDAO {
     public User getUser(Integer id){
         User user = new User();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT name, surname, email FROM users WHERE id = ?");
-            preparedStatement.setString(1, String.valueOf(id));
-            ResultSet resultSet = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall("call get_user_by_id(?)");
+            callableStatement.setString(1, String.valueOf(id));
+            ResultSet resultSet = callableStatement.executeQuery();
             resultSet.next();
             user.setUser_id(id);
             user.setName(resultSet.getString(1));
@@ -101,7 +100,7 @@ public class UserDAO {
 
     public User update(int id, User user){
         try {
-            PreparedStatement preparedStatement =connection.prepareStatement("UPDATE users SET name = ?,surname=?,email=? WHERE user_id = ?;");
+            PreparedStatement preparedStatement =connection.prepareStatement("call update_data_on_idUser(?,?,?,?)");
             preparedStatement.setString(1,user.getName());
             preparedStatement.setString(2,user.getSurname());
             preparedStatement.setString(3,user.getEmail());

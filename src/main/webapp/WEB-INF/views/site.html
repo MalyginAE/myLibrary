@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/styles/css/change_data_user.css"  rel="stylesheet"  type="text/css"/>
+</head>
+<body>
+<form enctype="multipart/form-data" th:method="Post"  th:action="@{https://localhost:80/ConvertService.ashx} ">
+    <input type="file" name="file" id="fileInput" style="display: none">
+    <button type="button" id="changeFile" onclick="document.getElementById('fileInput').click()">Выберите файл</button>
+    <input type="submit" id="submit_user" value="Отправить">
+</form>
+</body>
+</html>
