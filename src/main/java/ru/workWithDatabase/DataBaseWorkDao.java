@@ -25,7 +25,13 @@ public class DataBaseWorkDao {
     @PostConstruct
     public void dataInitMethod() {
         initDataBaseJDBS();
-        //PreparedStatement addInBooks = null;
+        createRoutines();
+
+
+
+    }
+
+    private void createRoutines() {
         CallableStatement callableStatement = null;
         try {
             for (String s:ProcedureString.listOfNamesProcedure
@@ -43,12 +49,14 @@ public class DataBaseWorkDao {
                 callableStatement.execute();
             }
 
-            System.out.println(callableStatement.wasNull());
+            for (String s:ProcedureString.listOfFunction) {
+                callableStatement = connection.prepareCall(s);
+                callableStatement.execute();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void initDataBaseJDBS() {
@@ -65,8 +73,39 @@ public class DataBaseWorkDao {
         }
     }
 
+    public void dropTables() {
+        try {
+            connection.prepareCall("call drop_all_tables;").execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void createAllTable(){
+        try {
+            connection.prepareCall("call create_Tables;").execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void createDataBase(){
+        try {
+            connection.prepareCall("CREATE DATABASE library;").execute();
+            connection.prepareCall("USE library;").execute();
+            createAllTable();
+            createRoutines();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+    }
+    public void deleteDatabase(){
+        try {
+            connection.prepareCall("DROP DATABASE;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

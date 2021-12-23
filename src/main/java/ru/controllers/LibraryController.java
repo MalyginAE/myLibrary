@@ -21,7 +21,7 @@ public class LibraryController {
     public String mainPage(Model model){
         Object obj = model.getAttribute("current_user");
         if (obj!=null)System.out.println(obj.getClass()+" |"+ User.class);
-        if (obj==null || !obj.getClass().equals(User.class)){
+        if (obj==null || !obj.getClass().equals(User.class)||Integer.parseInt(obj.toString())==0){
 
             return "redirect:/user/input";
         }

@@ -85,16 +85,16 @@ public class BookDAO {
     public List<Book> allUserBook(int user_id){
         List<Book> list = new ArrayList<>();
         try {
-            PreparedStatement addInBooks = connection.prepareStatement("call get_books_of_user(?)");
+            CallableStatement addInBooks = connection.prepareCall("call get_books_of_user(?);");
             addInBooks.setString(1, String.valueOf(user_id));
             ResultSet resultSet = addInBooks.executeQuery();
 
             while (resultSet.next()){
                 Book book = new Book();
-                book.setUrlPDF(resultSet.getString("book_url"));
-                book.setImage_source(resultSet.getString("image_book_source"));
-                book.setUrl_req(resultSet.getString("request_to_server"));
-                book.setBook_id(Integer.parseInt(resultSet.getString("book_id")));
+                book.setUrlPDF(resultSet.getString(1));
+                book.setImage_source(resultSet.getString(2));
+                book.setUrl_req(resultSet.getString(3));
+                book.setBook_id(Integer.parseInt(resultSet.getString(4)));
                 list.add(book);
             }
 
@@ -121,9 +121,9 @@ public class BookDAO {
 
             resultSet.next();
                 Book book = new Book();
-                book.setUrlPDF(resultSet.getString("book_url"));
-                book.setImage_source(resultSet.getString("image_book_source"));
-                book.setUrl_req(resultSet.getString("request_to_server"));
+                book.setUrlPDF(resultSet.getString(1));
+                book.setImage_source(resultSet.getString(2));
+                book.setUrl_req(resultSet.getString(3));
                 book.setBook_id(book_id);
                 return book;
 
