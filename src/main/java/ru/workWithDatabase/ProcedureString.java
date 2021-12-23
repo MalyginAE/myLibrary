@@ -142,10 +142,17 @@ public class ProcedureString {
             "END;\n" +
             "\n";
 
+    public static final String deleteBooksTable = "CREATE PROCEDURE drop_books_table()\n" +
+            "BEGIN\n" +
+            "DROP TABLE IF EXISTS user_connect_books;\n" +
+            "DROP TABLE IF EXISTS books;\n" +
+            "DROP TABLE IF EXISTS request;\n" +
+            "END;";
+
     public static final List<String> listOfNamesProcedure = new ArrayList(List.of("insert_data_from_user", "bucketUser", "drop_all_tables", "create_Tables",
-            "get_user_by_id", "update_data_on_idUser","get_books_of_user","select_book_on_idbook","insert_book","collectUser","delete_book"));
+            "get_user_by_id", "update_data_on_idUser","get_books_of_user","select_book_on_idbook","insert_book","collectUser","delete_book","drop_books_table"));
     public static final List<String> listOfNamesFunctions = new ArrayList(List.of("find_idEmail", "autoruzation","find_idrequest"));
-    public static final List<String> listOfProcedure = new ArrayList(List.of(insertBook,select_book_on_inbook,INSERTDATAFROMUSER, CREATE_TABLES, DROPALLTABLES, COLLECTUSER, getUserById,
+    public static final List<String> listOfProcedure = new ArrayList(List.of(insertBook,select_book_on_inbook,INSERTDATAFROMUSER, CREATE_TABLES, DROPALLTABLES,deleteBooksTable, COLLECTUSER, getUserById,
              UPDATEDATAONIDUSER,get_books_of_user,DELETE_BOOK));
     public static final List<String> listOfFunction = new ArrayList(List.of(FUNCTIONFINDIDEMAIL, AUTORUZATION,find_IDRequest));
 

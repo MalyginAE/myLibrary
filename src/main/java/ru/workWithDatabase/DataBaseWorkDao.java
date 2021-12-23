@@ -92,8 +92,8 @@ public class DataBaseWorkDao {
         try {
             connection.prepareCall("CREATE DATABASE library;").execute();
             connection.prepareCall("USE library;").execute();
-            createAllTable();
             createRoutines();
+            createAllTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -101,7 +101,14 @@ public class DataBaseWorkDao {
     }
     public void deleteDatabase(){
         try {
-            connection.prepareCall("DROP DATABASE;");
+            connection.prepareCall("DROP DATABASE library;").execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteBooksTables(){
+        try {
+            connection.prepareCall("call drop_books_table();").execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

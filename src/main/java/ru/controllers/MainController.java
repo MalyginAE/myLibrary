@@ -14,11 +14,7 @@ public class MainController {
         return "manage";
     }
 
-    @GetMapping("/deleteDatabase")
-    public String deleteDatabase() {
-        System.out.println("Dleted data base");
-        return "redirect:/manage";
-    }
+
 
     @GetMapping("/createTables")
     public String createTables() {
@@ -45,7 +41,7 @@ public class MainController {
 
     @GetMapping("/deleteBookTable")
     public String deleteBookTable() {
-
+        workDao.deleteBooksTables();
         return "redirect:/manage";
     }
 
